@@ -12,7 +12,7 @@ function have() {
 
 function cmdCheck() {
   if [ $? -eq 0 ]; then
-    printf "%b" "${GREEN}$1${RESET}"
+    printf "%b" "${GREEN}Success!!${RESET}"
   else
     printf "%b" "${RED}Fail!!${RESET}"
   fi
@@ -33,53 +33,53 @@ function main() {
   # NOTE: Creating `uinput` and `input` group
   printf "%b\n" "${YELLOW}Creating group ${CYAN} uinput ${RESET} and ${CYAN} input ${RESET}${RESET}"
   sudo groupadd uinput
-  cmdCheck "Created uinput group"
+  cmdCheck
   sudo groupadd input
-  cmdCheck "Created input group"
+  cmdCheck
 
   # NOTE: Adding $USER to `uinput` and `input`
   printf "%b\n" "${YELLOW}Adding group ${CYAN} uinput ${RESET} and ${CYAN} input ${RESET} to user ${CYAN} $USER ${RESET}${RESET}"
   sudo usermod -aG uinput "$USER"
-  cmdCheck "Added uinput to $USER"
+  cmdCheck
   sudo usermod -aG input "$USER"
-  cmdCheck "Added input to $USER"
+  cmdCheck
 
   printf "%b\n" "${YELLOW}Copying rules file${RESET}"
   sudo cp -r ./99-input.rules /etc/udev/rules.d/
-  cmdCheck "Success"
+  cmdCheck
 
   printf "%b\n" "${YELLOW}Reloading Rules${RESET}"
   sudo udevadm control --reload-rules && sudo udevadm trigger
-  cmdCheck "Success"
+  cmdCheck
 
   printf "%b\n" "${YELLOW}Verifying uinput file${RESET}"
   ls -l /dev/uinput
-  cmdCheck "Success"
+  cmdCheck
 
   printf "%b\n" "${YELLOW}Loading uinput drivers${RESET}"
   sudo modprobe uinput
-  cmdCheck "Success"
+  cmdCheck
 
   if [ -d "$HOME/.config/systemd/user/" ]; then
     printf "%b\n" "${YELLOW}Copying Service file${RESET}"
     cp -rf ./kanata.service ~/.config/systemd/user/
-    cmdCheck "Success"
+    cmdCheck
   else
     mkdir -p "$HOME/.config/systemd/user/"
     printf "%b\n" "${YELLOW}Copying Service file${RESET}"
     cp -rf ./kanata.service ~/.config/systemd/user/
-    cmdCheck "Success"
+    cmdCheck
   fi
 
   if [ -d "$HOME/.config/kanata/" ]; then
     printf "%b\n" "${YELLOW}Copying kanata file${RESET}"
     cp -rf ./config.kbd ~/.config/kanata/
-    cmdCheck "Success"
+    cmdCheck
   else
-    mkdir -p "$HOME/.config/systemd/user/"
+    mkdir -p "$HOME/.config/kanata"
     printf "%b\n" "${YELLOW}Copying kanata file${RESET}"
     cp -rf ./config.kbd ~/.config/kanata/
-    cmdCheck "Success"
+    cmdCheck
   fi
 
   printf "%b\n" "${YELLOW} Enabling Services ${RESET}"
@@ -87,7 +87,7 @@ function main() {
   systemctl --user enable kanata.service
   systemctl --user start kanata.service
   systemctl --user status kanata.service # check whether the service is running
-  cmdCheck "Success"
+  cmdCheck
 
   printf "%b\n" "${YELLOW} Rebooting system in 60 seconds ${RESET}"
   sleep 60
