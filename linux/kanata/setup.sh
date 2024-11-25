@@ -44,8 +44,8 @@ function main() {
   sudo usermod -aG input "$USER"
   cmdCheck
 
-  printf "%b\n" "${YELLOW}Copying rules file${RESET}"
-  sudo cp -r ./99-input.rules /etc/udev/rules.d/
+  printf "%b\n" "${YELLOW}Setting up group rules for uinput${RESET}"
+  echo "KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"" | sudo tee /etc/udev/rules.d/99-input.rules
   cmdCheck
 
   printf "%b\n" "${YELLOW}Reloading Rules${RESET}"
