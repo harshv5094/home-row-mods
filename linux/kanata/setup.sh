@@ -89,9 +89,7 @@ function main() {
   systemctl --user status kanata.service # check whether the service is running
   cmdCheck
 
-  printf "%b\n" "${YELLOW} Rebooting system in 60 seconds ${RESET}"
-  sleep 60
-  reboot
+  printf "%b\n" "${YELLOW} Driver installation is done! Reboot the system to let kanata vork properly. ${RESET}"
 }
 
 main
