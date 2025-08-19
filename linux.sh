@@ -4,7 +4,7 @@
 # Global Directory #
 ####################
 SYSTEMD_USER="$HOME/.config/systemd/user/"
-CLONE_DIR="$HOME/home-row-mods/"
+CLONE_DIR="$HOME/projects/personal/home-row-mods/"
 KANATA_DIR="$HOME/.config/kanata"
 
 #####################
