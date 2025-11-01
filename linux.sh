@@ -67,10 +67,13 @@ main() {
   # List of groups to check
   for group in uinput input; do
     if getent group "$group" >/dev/null; then
-      echo "Group '$group' exists."
+      echo "Group '$group' exists. Deleting the group and recreating it"
+      sudo groupdel $group
+      sudo groupadd --system $group
+      cmdCheck "$?"
     else
       echo "Group '$group' does not exist."
-      sudo groupadd $group
+      sudo groupadd --system $group
       cmdCheck "$?"
     fi
   done
