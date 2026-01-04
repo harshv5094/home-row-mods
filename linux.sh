@@ -1,10 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ####################
 # Global Directory #
 ####################
 SYSTEMD_USER="$HOME/.config/systemd/user/"
-CLONE_DIR="$HOME/Development/personal/home-row-mods/"
+CLONE_DIR="/tmp/home-row-mods"
 KANATA_DIR="$HOME/.config/kanata"
 
 #####################
