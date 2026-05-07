@@ -3,9 +3,10 @@
 ####################
 # Global Directory #
 ####################
-SYSTEMD_USER="$HOME/.config/systemd/user/"
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+SYSTEMD_USER="$XDG_CONFIG_HOME/systemd/user/"
 CLONE_DIR="/tmp/home-row-mods"
-KANATA_DIR="$HOME/.config/kanata"
+KANATA_DIR="$XDG_CONFIG_HOME/kanata"
 
 #####################
 # TUI color Message #
@@ -117,7 +118,7 @@ main() {
     cp -rf "$CLONE_DIR/linux/kanata/config.kbd" "$KANATA_DIR"
     cmdCheck "$?"
   else
-    mkdir -p "$HOME/.config/kanata"
+    mkdir -p "$XDG_CONFIG_HOME/kanata"
     color_msg yellow "Copying kanata file"
     cp -rf "$CLONE_DIR/linux/kanata/config.kbd" "$KANATA_DIR"
     cmdCheck "$?"
